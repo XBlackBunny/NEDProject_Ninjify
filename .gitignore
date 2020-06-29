@@ -6,3 +6,5 @@
 .vscode/launch.json
 **/bin
 **/obj
+**/node_modules
+**/dist
