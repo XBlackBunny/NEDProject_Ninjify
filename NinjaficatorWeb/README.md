@@ -1,4 +1,4 @@
-# nedninjify
+# NinjaficatorWeb
 
 ## Project setup
 ```
