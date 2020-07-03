@@ -1,0 +1,71 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "webApiName": {
+            "type": "string",
+            "metadata": {
+                "description": "Specify the name of the main web api."
+            }
+        },
+        "appServicePlan": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string"
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "name": "[parameters('webApiName')]",
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/',parameters('appServicePlan'))]": "Resource",
+                "displayName": "[parameters('webApiName')]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlan'))]"
+            ],
+            "properties": {
+                "name": "[parameters('webApiName')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlan'))]"
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "Tier": "[first(skip(split(parameters('sku'), ' '), 1))]",
+                "Name": "[first(split(parameters('sku'), ' '))]"
+            },
+            "name": "[parameters('appServicePlan')]",
+            "apiVersion": "2015-08-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "name": "[parameters('appServicePlan')]",
+                "workerSizeId": "0",
+                "reserved": false,
+                "numberOfWorkers": 1,
+                "hostingEnvironment": ""
+            }
+        },
+        {
+            "type": "Microsoft.Insights/components",
+            "name": "[parameters('webApiName')]",
+            "apiVersion": "2014-04-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('webApiName'))]": "Resource"
+            },
+            "properties": {
+                "applicationId": "[parameters('webApiName')]",
+                "Request_Source": "AzureTfsExtensionAzureProject"
+            }
+        }
+        
+    ],
+    "outputs": {}
+}
