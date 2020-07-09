@@ -25,7 +25,7 @@ export default {
       if(!this.genSource){ // field too small or empty
 
       } else {
-        axios.get('https://ninjifywebapi.azurewebsites.net/Ninjify?techname=' + this.genSource).then(response => this.ninjaName = response.data)
+        axios.get(this.appConfig.api + 'Ninjify?techname=' + this.genSource).then(response => this.ninjaName = response.data)
       }
     }
   }
