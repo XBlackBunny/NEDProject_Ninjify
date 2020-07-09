@@ -7,9 +7,6 @@
         },
         "appServicePlan": {
             "value": "NinjifyServicePlan" 
-        },
-        "sku": {
-            "value": "Standard S1"
         }
     }
 }

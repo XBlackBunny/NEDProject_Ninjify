@@ -15,16 +15,16 @@ namespace Ninjaficator2020.BLL
         /// </summary>
         /// <param name="source">Source string</param>
         /// <returns>int array of length 3</returns>
-        public static int[] GetIntsFromString(string source)
+        public static long[] GetIntsFromString(string source)
         {
             if (source == null || source.Length < 2)
-                return new int[3];
+                return new long[3];
 
             byte[] nameBytes = Encoding.Default.GetBytes(source);
             var hexedSource = BitConverter.ToString(nameBytes);
             hexedSource = hexedSource.Replace("-", "");
 
-            int[] resultingInts = new int[3];
+            long[] resultingInts = new long[3];
             
 
             int hexBlockLength = Convert.ToInt32(Math.Floor((decimal)hexedSource.Length/3));
@@ -41,7 +41,7 @@ namespace Ninjaficator2020.BLL
                     usableLength = hexBlockLength;
 
                 string subHex = hexedSource.Substring(hexBlockStar, usableLength);
-                resultingInts[i] = int.Parse(subHex, System.Globalization.NumberStyles.HexNumber);
+                resultingInts[i] = long.Parse(subHex, System.Globalization.NumberStyles.HexNumber);
             }
 
             return resultingInts;

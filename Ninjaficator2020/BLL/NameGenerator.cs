@@ -12,7 +12,7 @@ namespace Ninjaficator2020.BLL
     {
         public static string GenerateNinjaName(string techName)
         {
-            int[] partsIndex = StringToIntHelper.GetIntsFromString(techName);
+            long[] partsIndex = StringToIntHelper.GetIntsFromString(techName);
 
             var personNameIndex = partsIndex[0] % NinjaNameData.PersonName.Length;
             var orgAdjIndex = partsIndex[1] % NinjaNameData.OrganisationAdjective.Length;

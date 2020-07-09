@@ -15,8 +15,17 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
+
 steps:
 - task: NuGetToolInstaller@1
+
+- task: UseNode@1
+  inputs:
+    version: 12.x
+    
+- script: npm install
+
+- script : npm run build -- --dest Ninjaficator2020\wwwroot
 
 - task: NuGetCommand@2
   inputs:
@@ -25,9 +34,15 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\web.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: 'ARMConfigs'
+    Contents: '**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
 
 - task: VSTest@2
   inputs:

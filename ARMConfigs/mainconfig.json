@@ -10,9 +10,6 @@
         },
         "appServicePlan": {
             "type": "string"
-        },
-        "sku": {
-            "type": "string"
         }
     },
     "functions": [],
@@ -38,8 +35,8 @@
         {
             "type": "Microsoft.Web/serverfarms",
             "sku": {
-                "Tier": "[first(skip(split(parameters('sku'), ' '), 1))]",
-                "Name": "[first(split(parameters('sku'), ' '))]"
+                "tier": "Standard",
+                "name": "S1"
             },
             "name": "[parameters('appServicePlan')]",
             "apiVersion": "2015-08-01",
