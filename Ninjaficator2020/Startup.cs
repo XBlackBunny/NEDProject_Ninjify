@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Ninjaficator2020.BLL;
+using Ninjaficator2020.BLL.Interface;
 
 namespace Ninjaficator2020
 {
@@ -26,6 +28,8 @@ namespace Ninjaficator2020
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddScoped<INameGenerator, NameGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

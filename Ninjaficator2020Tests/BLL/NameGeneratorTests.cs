@@ -12,7 +12,9 @@ namespace Ninjaficator2020.BLL.Tests
         [TestMethod()]
         public void GenerateNinjaNameTest()
         {
-            var ninjaName = NameGenerator.GenerateNinjaName("Pascal");
+            var nameGen = new NameGenerator();
+
+            var ninjaName = nameGen.GenerateNinjaName("Pascal");
 
             Assert.IsNotNull(ninjaName);
         }
@@ -20,19 +22,47 @@ namespace Ninjaficator2020.BLL.Tests
         [TestMethod()]
         public void GenerateNinjaName_SameTechSameName()
         {
-            var ninjaName1 = NameGenerator.GenerateNinjaName("Python");
-            var ninjaName2 = NameGenerator.GenerateNinjaName("Python");
+            var nameGen = new NameGenerator();
 
-            Assert.AreEqual(ninjaName1,ninjaName2);
+            var ninjaName1 = nameGen.GenerateNinjaName("Python");
+            var ninjaName2 = nameGen.GenerateNinjaName("Python");
+
+            Assert.AreEqual(ninjaName1.Result,ninjaName2.Result);
         }
 
         [TestMethod()]
         public void GenerateNinjaName_DifferentTechDifferentName()
         {
-            var ninjaName1 = NameGenerator.GenerateNinjaName("Python");
-            var ninjaName2 = NameGenerator.GenerateNinjaName("Html");
+            var nameGen = new NameGenerator();
 
-            Assert.AreNotEqual(ninjaName1, ninjaName2);
+            var ninjaName1 = nameGen.GenerateNinjaName("Python");
+            var ninjaName2 = nameGen.GenerateNinjaName("Html");
+
+            Assert.AreNotEqual(ninjaName1.Result, ninjaName2.Result);
+        }
+
+        [TestMethod()]
+        public void GenerateNinjaName_SourceTooShort()
+        {
+            var nameGen = new NameGenerator();
+
+            var ninjaName = nameGen.GenerateNinjaName("q");
+
+            Assert.IsTrue(ninjaName.HasError);
+            Assert.AreEqual(ninjaName.Result, default);
+            Assert.IsNull(ninjaName.Exception);
+        }
+
+        [TestMethod()]
+        public void GenerateNinjaName_SourceIsToLong()
+        {
+            var nameGen = new NameGenerator();
+
+            var ninjaName = nameGen.GenerateNinjaName("fdsaaaaaaafdafsfsdfsdfsdfsdafsdq");
+
+            Assert.IsTrue(ninjaName.HasError);
+            Assert.AreEqual(ninjaName.Result, default);
+            Assert.IsNull(ninjaName.Exception);
         }
     }
 }

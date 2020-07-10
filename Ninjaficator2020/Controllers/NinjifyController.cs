@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Ninjaficator2020.BLL;
-using Ninjaficator2020.Model;
+using Ninjaficator2020.BLL.Interface;
 
 namespace Ninjaficator2020.Controllers
 {
@@ -22,16 +14,23 @@ namespace Ninjaficator2020.Controllers
         };
 
         private readonly ILogger<NinjifyController> _logger;
+        private readonly INameGenerator _nameGenerator;
 
-        public NinjifyController(ILogger<NinjifyController> logger)
+        public NinjifyController(ILogger<NinjifyController> logger, INameGenerator nameGenerator)
         {
             _logger = logger;
+            _nameGenerator = nameGenerator;
         }
 
+        /// <summary>
+        /// ↑↑↓↓←→←→ba
+        /// </summary>
+        /// <param name="techName"></param>
+        /// <returns></returns>
         [HttpGet]
-        public string Get([FromQuery(Name = "techname")] string techName)
+        public JsonResult Get([FromQuery(Name = "x")] string techName)
         {
-            return NameGenerator.GenerateNinjaName(techName);
+            return new JsonResult(_nameGenerator.GenerateNinjaName(techName));
         }
     }
 }

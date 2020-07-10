@@ -20,9 +20,13 @@ namespace Ninjaficator2020.BLL
             if (source == null || source.Length < 2)
                 return new long[3];
 
-            byte[] nameBytes = Encoding.Default.GetBytes(source);
-            var hexedSource = BitConverter.ToString(nameBytes);
+            byte[] sourceBytes = Encoding.Default.GetBytes(source);
+            var hexedSource = BitConverter.ToString(sourceBytes);
             hexedSource = hexedSource.Replace("-", "");
+
+            if (hexedSource == "E28691E28691E28693E28693E28690E28692E28690E286926261")
+                return new long[] { -1, -1, -1 };
+
 
             long[] resultingInts = new long[3];
             

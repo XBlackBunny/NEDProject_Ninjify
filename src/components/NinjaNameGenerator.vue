@@ -1,8 +1,13 @@
 <template>
   <div class="hello">
-    <p>{{ninjaName}}</p>
+    <template v-if="executeOrderFourTwenty">
+      <a v-bind:href="orderFourTwenty"><p>{{ninjaName}}</p></a>
+    </template>
+    <template v-if="!executeOrderFourTwenty">
+      <p>{{ninjaName}}</p>
+    </template>
     <input v-model="genSource">
-    <button v-on:click="generateNinjaName">I want text here</button>
+    <button v-on:click="generateNinjaName">Generate</button>
   </div>
 </template>
 
@@ -17,19 +22,27 @@ export default {
   data: function(){
     return {
       ninjaName:'No name has been generated yet.',
-      genSource:''
+      orderFourTwenty:'https://bit.ly/2ZcKZ3G',
+      genSource: '',
+      executeOrderFourTwenty:false
     }
   },
   methods:{
     generateNinjaName: function(){
-      if(!this.genSource){ // field too small or empty
-
+      if(!this.genSource || this.genSource.length > 24 || this.genSource.length < 2){
+        this.ninjaName = "The value length is not suitable to generate a name correctly. It must be between 2 and 24 characters.";
       } else {
-        axios.get(this.appConfig.api + 'Ninjify?techname=' + this.genSource).then(response => this.ninjaName = response.data)
+        axios.get(this.appConfig.api + 'Ninjify?x=' + this.genSource)
+        .then(response => 
+         this.ninjaName = response.data.hasError 
+            ? response.data.errorMessage === "420" ? response.data.result
+            : response.data.errorMessage 
+            : response.data.result);
+
+        this.executeOrderFourTwenty = this.genSource === "↑↑↓↓←→←→ba";
       }
     }
   }
-
 }
 </script>
 

@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="./assets/ninjabrian1.png">
+    <NinjaNameGenerator/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/NinjaNameGenerator.vue'
+import NinjaNameGenerator from './components/NinjaNameGenerator.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NinjaNameGenerator
   }
 }
 </script>
