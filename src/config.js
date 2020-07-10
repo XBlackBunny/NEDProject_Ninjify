@@ -1,6 +1,6 @@
 let config;
   config = {
-    api: "https://localhost:44389/"
+    api: "https://ninjifyweb.azurewebsites.net/"
 }
 
 export { config }
