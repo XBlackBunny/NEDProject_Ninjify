@@ -32,5 +32,11 @@ namespace Ninjaficator2020.Controllers
         {
             return new JsonResult(_nameGenerator.GenerateNinjaName(techName));
         }
+
+        [HttpGet]
+        public JsonResult Get()
+        {
+            return new JsonResult(_nameGenerator.GenerateNinjaName("Csharp"));
+        }
     }
 }
