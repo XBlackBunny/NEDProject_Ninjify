@@ -73,5 +73,16 @@ namespace Ninjaficator2020.BLL.Tests
                 Assert.AreEqual(0, resultArray[i]);
             }
         }
+
+        [TestMethod()]
+        public void GetIntsFromString_KonamiCode()
+        {
+            var resultArray = StringToIntHelper.GetIntsFromString("↑↑↓↓←→←→ba");
+
+            for (int i = 0; i < 3; i++)
+            {
+                Assert.AreEqual(-1, resultArray[i]);
+            }
+        }
     }
 }

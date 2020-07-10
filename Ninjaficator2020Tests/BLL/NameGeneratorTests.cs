@@ -64,5 +64,17 @@ namespace Ninjaficator2020.BLL.Tests
             Assert.AreEqual(ninjaName.Result, default);
             Assert.IsNull(ninjaName.Exception);
         }
+
+        [TestMethod()]
+        public void GenerateNinjaName_KonamiCode()
+        {
+            var nameGen = new NameGenerator();
+
+            var ninjaName = nameGen.GenerateNinjaName("↑↑↓↓←→←→ba");
+
+            Assert.IsTrue(ninjaName.HasError);
+            Assert.AreEqual(ninjaName.Result, "");
+            Assert.IsNull(ninjaName.Exception);
+        }
     }
 }
