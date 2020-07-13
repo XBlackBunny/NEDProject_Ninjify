@@ -1,11 +1,11 @@
 let config;
 if(process.env.NODE_ENV !== 'dev'){
   config = {
-    api: "https://ninjifyweb.azurewebsites.net/"
+    api: process.env.URL
   }
 } else {
   config = {
-    api: process.env.URL
+    api: 'Localhost'
   }
 }
 
