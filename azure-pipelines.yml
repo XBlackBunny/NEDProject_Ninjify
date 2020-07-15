@@ -25,7 +25,7 @@ steps:
     
 - script: npm install
 
-- script : npm run build -- --dest Ninjaficator2020\wwwroot
+- script : npm run build-prod -- --dest Ninjaficator2020\wwwroot
 
 - task: NuGetCommand@2
   inputs:
