@@ -1,7 +1,8 @@
 let config;
-if(process.env.NODE_ENV !== 'dev'){
+
+if(process.env.VUE_APP_ENV !== 'dev'){
   config = {
-    api: process.env.URL
+    api: process.env.VUE_APP_URL
   }
 } else {
   config = {

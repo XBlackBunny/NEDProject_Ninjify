@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "build-local": "vue-cli-service build --dest Ninjaficator2020/wwwroot",
+    "serve": "set process.env.VUE_APP_ENV = 'dev' & vue-cli-service serve",
+    "build-dev": "vue-cli-service build --mode development --dest Ninjaficator2020/wwwroot",
+    "build-prod": "vue-cli-service build --dest Ninjaficator2020/wwwroot",
+    "build-local": "vue-cli-service build --mode development",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
