@@ -23,6 +23,11 @@ steps:
   inputs:
     version: 12.x
     
+- task: AzSKARMTemplateChecker@4
+  inputs:
+    ARMTemplateFilePath: 'ARMConfigs'
+    ARMTemplateParameterFilePath: 'ARMConfigs'
+
 - script: npm install
 
 - script : npm run build-prod -- --dest Ninjaficator2020\wwwroot
