@@ -1,7 +1,7 @@
 let config;
 
 config = {
-  api: process.env.VUE_APP_URL
+  api: process.env.BASE_URL
 }
 
 export { config }
