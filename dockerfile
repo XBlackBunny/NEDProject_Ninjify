@@ -1,17 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
-#ENV ASPNETCORE_URLS http://+:80
-#COPY Ninjaficator2020.csproj ./
-#RUN dotnet restore
-#COPY . ./
-#RUN dotnet publish -c Release -o out
-
-# Build runtime image
-#FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
-#WORKDIR /Ninjaficator2020
-#COPY --from=build-env /Ninjaficator2020/out .
-#ENTRYPOINT ["dotnet", "Ninjaficator2020.dll"]
-
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
