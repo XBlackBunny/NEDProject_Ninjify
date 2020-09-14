@@ -1,0 +1,86 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "webApiName": {
+            "type": "string",
+            "metadata": {
+                "description": "Specify the name of the main web api."
+            }
+        },
+        "appServicePlan": {
+            "type": "string"
+        },
+        "imageName": {
+            "type": "string"
+        }
+    },
+    "functions": [],
+    "variables": {},
+    "resources": [
+        {
+            "name": "[parameters('webApiName')]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2019-12-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "containers": [
+                {
+                    "name": "ninjifycontainerqa",
+                    "properties": {
+                    "image": "[parameters('imageName')]",
+                    "ports": [
+                        {
+                        "port": "80"
+                        }
+                    ]
+                    }
+                }
+                ],
+                "osType": "Linux",
+                "restartPolicy": "always",
+                "ipAddress": {
+                "type": "Public",
+                "ports": [
+                    {
+                    "protocol": "Tcp",
+                    "port": "80"
+                    }
+                ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "tier": "Standard",
+                "name": "F1"
+            },
+            "name": "[parameters('appServicePlan')]",
+            "apiVersion": "2015-08-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "name": "[parameters('appServicePlan')]",
+                "workerSizeId": "0",
+                "reserved": false,
+                "numberOfWorkers": 1,
+                "hostingEnvironment": ""
+            }
+        },
+        {
+            "type": "Microsoft.Insights/components",
+            "name": "[parameters('webApiName')]",
+            "apiVersion": "2014-04-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('webApiName'))]": "Resource"
+            },
+            "properties": {
+                "applicationId": "[parameters('webApiName')]",
+                "Request_Source": "AzureTfsExtensionAzureProject"
+            }
+        }
+        
+    ],
+    "outputs": {}
+}

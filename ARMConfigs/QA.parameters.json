@@ -7,6 +7,9 @@
         },
         "appServicePlan": {
             "value": "NinjifyServicePlanQA" 
+        },
+        "imageName":{
+            "value":"ninjify"
         }
     }
 }
