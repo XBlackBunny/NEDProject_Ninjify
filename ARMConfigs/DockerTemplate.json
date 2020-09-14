@@ -31,12 +31,18 @@
                     "image": "[parameters('imageName')]",
                     "ports": [
                         {
-                        "port": "80"
+                            "port": "80"
                         }
-                    ]
-                    }
+                    ],
+                    "resources": {
+                        "requests": {
+                            "cpu": "1",
+                            "memoryInGb": "1.5"
+                        }
+                    }   
                 }
-                ],
+            }
+            ],
                 "osType": "Linux",
                 "restartPolicy": "always",
                 "ipAddress": {
@@ -54,7 +60,7 @@
             "type": "Microsoft.Web/serverfarms",
             "sku": {
                 "tier": "Standard",
-                "name": "F1"
+                "name": "S1"
             },
             "name": "[parameters('appServicePlan')]",
             "apiVersion": "2015-08-01",
